@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('eleve_matiere', function (Blueprint $table) {
+            $table->foreignId('eleve_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('matiere_id')->constrained()->cascadeOnDelete();
+            $table->primary(['eleve_id', 'matiere_id']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('eleve_matiere');
+    }
+};
