@@ -14,23 +14,28 @@ class AdminUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required|string',
-            'email'=>'required|email|unique:users',
-            'password'=>'required|string|min:6',
+            'name'     => 'required|string',
+            'surname'  => 'required|string',
+            'email'    => 'required|email|unique:users',
+            'password' => 'required|string|min:6',
+            'classe'   => 'nullable|in:tle_D,tle_A4,tle_C,pre_D,pre_A4,pre_C,troisieme',
         ]);
 
         $user = User::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>Hash::make($request->password),
-            'role_id' => 2,
+            'name'     => $request->name,
+            'surname'     => $request->surname,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+            'role_id'  => 2,
+            'classe'   => $request->classe, // peut être null
         ]);
 
-        $role = Role::where('name',$request->role)->first();
+        $role = Role::where('name', $request->role)->first();
         $user->roles()->attach($role);
 
         return response()->json($user);
     }
+
 
     public function destroy($id)
     {

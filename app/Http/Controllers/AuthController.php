@@ -33,16 +33,19 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
-            // 'role_id' => 'required|exists:roles,id',
+            'classe' => 'nullable|in:tle_D,tle_A4,tle_C,pre_D,pre_A4,pre_C,troisieme',
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'surname' => $request->surname,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role_id' => 3,
+            'classe' => $request->classe, // peut être null
         ]);
 
         // Attribuer le rôle élève
@@ -57,6 +60,7 @@ class AuthController extends Controller
             'token' => $token
         ], 201);
     }
+
 
 
     public function logout(Request $request)
