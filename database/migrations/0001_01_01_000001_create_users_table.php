@@ -23,7 +23,7 @@ return new class extends Migration
                 'tle_D', 'tle_A4', 'tle_C',
                 'pre_D', 'pre_A4', 'pre_C',
                 'troisieme'
-            ]);
+            ])->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

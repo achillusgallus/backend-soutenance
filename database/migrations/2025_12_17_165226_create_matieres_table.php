@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('nom', 150);
             $table->text('description')->nullable();
+            $table->enum ('classe', [
+                'tle_D', 'tle_A4', 'tle_C',
+                'pre_D', 'pre_A4', 'pre_C',
+                'troisieme'
+            ]);
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });

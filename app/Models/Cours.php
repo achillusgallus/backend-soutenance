@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class Cour
@@ -38,7 +39,11 @@ class Cours extends Model
 		'matiere_id',
 		'professeur_id',
 		'titre',
-		'contenu'
+		'contenu',
+		'fichier',
+		'fichier_type',
+		'fichier_size',
+		'duree'
 	];
 
     public function matiere()
@@ -50,4 +55,9 @@ class Cours extends Model
     {
         return $this->belongsTo(User::class, 'professeur_id');
     }
+
+	public function getFileUrlAttribute()
+	{
+		return $this->fichier ? Storage::url($this->fichier) : null;
+	}
 }

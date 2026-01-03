@@ -14,6 +14,7 @@ class AdminMatiereController extends Controller
         $request->validate([
             'nom' => 'required',
             'description' => 'nullable',
+            'classe' => 'required|string',
             'user_name' => 'required|string',  // nom envoyé dans la requête
         ]);
 
@@ -27,6 +28,7 @@ class AdminMatiereController extends Controller
         $matiere = Matiere::create([
             'nom' => $request->nom,
             'description' => $request->description,
+            'classe' => $request->classe,
             'user_id' => $user->id,  // On met l'id trouvé en base
         ]);
 
@@ -36,7 +38,25 @@ class AdminMatiereController extends Controller
     public function update(Request $request, $id)
     {
         $matiere = Matiere::findOrFail($id);
-        $matiere->update($request->all());
+
+        $request->validate([
+            'nom' => 'sometimes|required',
+            'description' => 'nullable',
+            'classe' => 'required|string',
+            'user_name' => 'nullable|string',
+        ]);
+
+        $data = $request->only(['nom', 'description', 'classe']);
+
+        if ($request->filled('user_name')) {
+            $user = \App\Models\User::where('name', $request->user_name)->where('role_id', 2)->first();
+            if (!$user) {
+                return response()->json(['message' => 'Utilisateur introuvable ou n\'a pas le rôle requis.'], 422);
+            }
+            $data['user_id'] = $user->id;
+        }
+
+        $matiere->update($data);
         return response()->json($matiere);
     }
 

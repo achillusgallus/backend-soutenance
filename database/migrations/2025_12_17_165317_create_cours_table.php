@@ -17,6 +17,10 @@ return new class extends Migration
             $table->foreignId('professeur_id')->constrained('users')->cascadeOnDelete();
             $table->string('titre');
             $table->longText('contenu');
+            $table->string('fichier')->nullable();
+            $table->string('fichier_type')->nullable();
+            $table->unsignedBigInteger('fichier_size')->nullable();
+            $table->integer('duree')->nullable()->comment('durée en secondes pour les vidéos');
             $table->timestamps();
         });
     }
