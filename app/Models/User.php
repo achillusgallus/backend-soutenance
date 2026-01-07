@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Matiere;
 
 
 /**
@@ -89,12 +90,12 @@ class User extends Authenticatable
     /* ===== MATIERES ===== */
     public function matieresProfesseur()
     {
-        return $this->belongsToMany(Matiere::class, 'professeur_matiere');
+        return $this->belongsToMany(Matiere::class, 'professeur_matiere', 'user_id', 'matiere_id');
     }
 
     public function matieresEleve()
     {
-        return $this->belongsToMany(Matiere::class, 'eleve_matiere');
+        return $this->belongsToMany(Matiere::class, 'eleve_matiere', 'user_id', 'matiere_id');
     }
 
     /* ===== COURS ===== */
@@ -124,4 +125,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(MessagesForum::class);
     }
+    public function matieres()
+    {
+        return $this->hasMany(Matiere::class, 'user_id');
+    }
+    
 }

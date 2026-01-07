@@ -51,12 +51,12 @@ class Matiere extends Model
 
     public function professeurs()
     {
-        return $this->belongsToMany(User::class, 'professeur_matiere');
+        return $this->belongsToMany(User::class, 'professeur_matiere', 'matiere_id', 'user_id');
     }
 
     public function eleves()
     {
-        return $this->belongsToMany(User::class, 'eleve_matiere');
+        return $this->belongsToMany(User::class, 'eleve_matiere', 'matiere_id', 'user_id');
     }
 
     public function cours()

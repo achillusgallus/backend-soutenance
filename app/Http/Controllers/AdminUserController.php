@@ -19,6 +19,7 @@ class AdminUserController extends Controller
             'email'    => 'required|email|unique:users',
             'password' => 'required|string|min:6',
             'classe'   => 'nullable|in:tle_D,tle_A4,tle_C,pre_D,pre_A4,pre_C,troisieme',
+            'role_id'  => 'required|integer|in:1,2,3',
         ]);
 
         $user = User::create([
@@ -26,7 +27,7 @@ class AdminUserController extends Controller
             'surname'     => $request->surname,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'role_id'  => 2,
+            'role_id'  => $request->role_id,
             'classe'   => $request->classe, // peut être null
         ]);
 

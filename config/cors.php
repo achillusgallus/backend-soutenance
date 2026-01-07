@@ -51,6 +51,8 @@ return [
         'http://localhost:5173',
         'http://localhost:8000',
         'http://127.0.0.1:*',
+        'https://togoschool-dd065.web.app',
+        'https://kannon-spadiceous-tangly.ngrok-free.dev'
     ],
 
     'allowed_origins_patterns' => [

@@ -9,10 +9,11 @@ use App\Http\Controllers\SujetsForumController;
 use App\Http\Controllers\MessagesForumController;
 use App\Http\Controllers\CoursController;
 use App\Http\Controllers\ResultatsQuizController;
-use App\Http\Controllers\FormController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\AdminMatiereController;
 use App\Http\Controllers\AdminForumController;
 use App\Http\Controllers\ProfesseurMatiereController;
+use App\Http\Controllers\ProfesseurStudentsController;
 use App\Http\Controllers\ProfesseurCoursController;
 use App\Http\Controllers\ProfesseurQuizController;
 use App\Http\Controllers\professeurForumController;
@@ -30,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/update-password', [AuthController::class, 'updatePassword']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', fn (Request $request) => $request->user());//V
+    Route::put('/me', [AuthController::class, 'updateProfile']);
 
     Route::get('/cours', [CoursController::class, 'index']);  // liste des cours
     Route::get('/cours/{id}', [CoursController::class, 'show']); // détail cours
@@ -68,8 +70,10 @@ Route::middleware(['auth:sanctum', RoleMiddleware::class.':1'])->group(function 
 
 Route::middleware(['auth:sanctum', RoleMiddleware::class.':2'])->group(function () {
     Route::get('/professeur/matieres', [ProfesseurMatiereController::class, 'index']);
+    Route::get('/professeur/eleves', [ProfesseurStudentsController::class, 'getMyStudents']);
     Route::apiResource('/professeur/cours', ProfesseurCoursController::class); //V
     Route::apiResource('/professeur/quiz', ProfesseurQuizController::class); //V
+    Route::get('/professeur/forums-list', [ProfesseurForumController::class, 'getForums']);
     Route::get('/professeur/forums/sujets', [ProfesseurForumController::class, 'index']);
     Route::post('/professeur/forums/sujets/{sujet_id}/repondre', [ProfesseurForumController::class, 'repondre']);
     Route::get('/professeur/quiz/{quiz_id}/questions', [ProfesseurQuestionController::class, 'index']);

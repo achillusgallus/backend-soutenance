@@ -57,4 +57,13 @@ class SujetsForum extends Model
 	{
 		return $this->hasMany(MessagesForum::class, 'sujet_id');
 	}
+
+	public function messages()
+    {
+        return $this->messages_forums();
+    }
+	public function auteur()
+    {
+        return $this->user();
+    }
 }

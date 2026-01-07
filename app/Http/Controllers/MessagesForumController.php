@@ -11,7 +11,7 @@ class MessagesForumController extends Controller
     public function index($sujet_id)
     {
         $messages = MessagesForum::where('sujet_id', $sujet_id)
-            ->with('auteur')
+            ->with('user')
             ->get();
 
         return response()->json($messages);

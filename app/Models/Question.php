@@ -41,9 +41,8 @@ class Question extends Model
 	{
 		return $this->belongsTo(Quiz::class);
 	}
-
-	public function reponses()
+		public function reponses()
 	{
-		return $this->hasMany(Reponse::class);
+		return $this->hasMany(Reponse::class, 'question_id');
 	}
 }

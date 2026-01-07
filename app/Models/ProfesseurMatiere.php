@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class ProfesseurMatiere
  * 
- * @property int $professeur_id
+ * @property int $user_id
  * @property int $matiere_id
  * 
  * @property User $user
@@ -26,13 +26,17 @@ class ProfesseurMatiere extends Model
 	public $timestamps = false;
 
 	protected $casts = [
-		'professeur_id' => 'int',
+		'user_id' => 'int',
 		'matiere_id' => 'int'
+	];
+
+	protected $fillable = [
+		'user_id', 'matiere_id'
 	];
 
 	public function user()
 	{
-		return $this->belongsTo(User::class, 'professeur_id');
+		return $this->belongsTo(User::class, 'user_id');
 	}
 
 	public function matiere()
