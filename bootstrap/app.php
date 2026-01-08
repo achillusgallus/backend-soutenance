@@ -12,7 +12,7 @@ use Illuminate\Foundation\Configuration\Middleware;
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->append(\App\Http\Middleware\XssSanitization::class);
     })
     ->withMiddleware(function (Middleware $middleware) { 
         $middleware->append(\App\Http\Middleware\CorsMiddleware::class);
