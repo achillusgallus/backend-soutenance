@@ -10,23 +10,22 @@ RUN apt-get update \
         libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Configurer et installer les extensions PHP requises
-RUN docker-php-ext-configure zip --with-libzip \
-    && docker-php-ext-install pdo pdo_pgsql zip
+# Installer les extensions PHP requises
+RUN docker-php-ext-install pdo pdo_pgsql zip
 
 # Copier Composer depuis l'image officielle Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Définir le répertoire de travail
+#Définir le répertoire de travail
 WORKDIR /var/www/html
 
-# Copier le projet dans l'image
+#Copier le projet dans l'image
 COPY . /var/www/html/
 
-# Activer mod_rewrite pour Laravel
+#Activer mod_rewrite pour Laravel
 RUN a2enmod rewrite
 
-# Configurer les permissions pour Laravel
+#Configurer les permissions pour Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
