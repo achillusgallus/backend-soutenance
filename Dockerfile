@@ -1,6 +1,6 @@
 FROM php:8.1-apache
 
-# Installer les dépendances système nécessaires
+#Installer les dépendances système nécessaires
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         libzip-dev \
@@ -10,22 +10,25 @@ RUN apt-get update \
         libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Installer les extensions PHP requises
+#Installer les extensions PHP requises
 RUN docker-php-ext-install pdo pdo_pgsql zip
 
-# Copier Composer depuis l'image officielle Composer
+#Activer mod_rewrite pour Laravel
+RUN a2enmod rewrite
+
+#Changer le DocumentRoot vers le dossier public de Laravel
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+
+#Copier Composer depuis l'image officielle
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 #Définir le répertoire de travail
 WORKDIR /var/www/html
 
-#Copier le projet dans l'image
-COPY . /var/www/html/
+#Copier le code du projet dans le conteneur
+COPY . /var/www/html
 
-#Activer mod_rewrite pour Laravel
-RUN a2enmod rewrite
-
-#Configurer les permissions pour Laravel
+#Donner les bonnes permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
