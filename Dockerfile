@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.2-apache
 
 # Installer les dépendances système nécessaires
 RUN apt-get update \
