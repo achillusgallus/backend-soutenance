@@ -16,7 +16,7 @@ use App\Http\Controllers\ProfesseurMatiereController;
 use App\Http\Controllers\ProfesseurStudentsController;
 use App\Http\Controllers\ProfesseurCoursController;
 use App\Http\Controllers\ProfesseurQuizController;
-use App\Http\Controllers\professeurForumController;
+use App\Http\Controllers\ProfesseurForumController;
 use App\Http\Controllers\ProfesseurQuestionController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Middleware\RoleMiddleware;
