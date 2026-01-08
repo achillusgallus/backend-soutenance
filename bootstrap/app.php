@@ -20,11 +20,6 @@ use Illuminate\Foundation\Configuration\Middleware;
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
- $app->middleware([
-     // autres middlewares...
-     \Illuminate\Http\Middleware\HandleCors::class,
- ]);
-
  return $app;
 
     
