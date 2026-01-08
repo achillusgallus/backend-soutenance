@@ -14,6 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         //
     })
+    ->withMiddleware(function (Middleware $middleware) { 
+        $middleware->append(CorsMiddleware::class);
+    })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
