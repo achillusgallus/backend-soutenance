@@ -52,6 +52,7 @@ return [
         'http://localhost:8000',
         'http://127.0.0.1:*',
         'https://togoschool-dd065.web.app',
+        'https://togoschool-dd065.firebaseapp.com',
         'https://kannon-spadiceous-tangly.ngrok-free.dev',
         'https://backend-togoschool.onrender.com',
     ],
