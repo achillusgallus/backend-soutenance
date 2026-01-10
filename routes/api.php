@@ -21,6 +21,7 @@ use App\Http\Controllers\ProfesseurQuestionController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\StudentMatiereController;
+use App\Http\Controllers\Api\StudentPaymentController;
 
 
 Route::post('/login', [AuthController::class, 'login']);   //V
@@ -53,6 +54,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/sujets/{sujet_id}/messages', [MessagesForumController::class, 'index']);
     Route::post('/messages', [MessagesForumController::class, 'store']);
+
+    // Routes de paiement pour les étudiants
+    Route::post('/student/validate-payment', [StudentPaymentController::class, 'validatePayment']);
+    Route::get('/student/check-access', [StudentPaymentController::class, 'checkAccess']);
+    Route::get('/student/total-paid', [StudentPaymentController::class, 'getTotalPaid']);
 });
 
 

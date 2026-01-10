@@ -17,6 +17,11 @@ use Illuminate\Foundation\Configuration\Middleware;
     ->withMiddleware(function (Middleware $middleware) { 
         $middleware->append(\App\Http\Middleware\CorsMiddleware::class);
     })
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->alias([
+            'payment.required' => \App\Http\Middleware\RequirePayment::class,
+        ]);
+    })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
