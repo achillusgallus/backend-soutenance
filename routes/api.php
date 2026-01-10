@@ -26,6 +26,7 @@ use App\Http\Controllers\StudentMatiereController;
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/admin/impersonate/stop', [AdminImpersonationController::class, 'stop']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -60,7 +61,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::middleware(['auth:sanctum', RoleMiddleware::class.':1'])->group(function () {
     Route::post('/admin/impersonate/{id}', [AdminImpersonationController::class, 'impersonate']);
-    Route::post('/admin/impersonate/stop', [AdminImpersonationController::class, 'stop']);
 
     Route::apiResource('/admin/matieres', AdminMatiereController::class); //V
     Route::apiResource('/admin/users', AdminUserController::class); //V
