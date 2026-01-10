@@ -68,7 +68,7 @@ Route::middleware(['auth:sanctum', RoleMiddleware::class.':1'])->group(function 
 
 
 
-Route::middleware(['auth:sanctum', RoleMiddleware::class.':2'])->group(function () {
+Route::middleware(['auth:sanctum', RoleMiddleware::class.':2,3'])->group(function () {
     Route::get('/professeur/matieres', [ProfesseurMatiereController::class, 'index']);
     Route::get('/professeur/eleves', [ProfesseurStudentsController::class, 'getMyStudents']);
     Route::apiResource('/professeur/cours', ProfesseurCoursController::class); //V
