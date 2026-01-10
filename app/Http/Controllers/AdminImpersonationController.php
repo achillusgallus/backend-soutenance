@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\User;
+
+class AdminImpersonationController extends Controller
+{
+    public function impersonate(Request $request, $id)
+    {
+        try {
+            $admin = $request->user();
+
+            if ($admin->role_id !== 1) {
+                return response()->json(['error' => 'Unauthorized'], 403);
+            }
+
+            $teacher = User::where('id', $id)->where('role_id', 2)->first();
+            if (!$teacher) {
+                return response()->json(['error' => 'Teacher not found'], 404);
+            }
+
+            $token = $teacher->createToken('impersonation')->plainTextToken;
+
+            return response()->json([
+                'impersonation_token' => $token,
+                'teacher' => $teacher,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+
+    public function stop(Request $request)
+    {
+        // Ici tu peux simplement dire au front de réutiliser le token admin
+        return response()->json(['message' => 'Impersonation stopped']);
+    }
+}
