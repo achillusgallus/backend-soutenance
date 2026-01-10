@@ -12,6 +12,7 @@ use App\Http\Controllers\ResultatsQuizController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\AdminMatiereController;
 use App\Http\Controllers\AdminForumController;
+use App\Http\Controllers\AdminImpersonationController;
 use App\Http\Controllers\ProfesseurMatiereController;
 use App\Http\Controllers\ProfesseurStudentsController;
 use App\Http\Controllers\ProfesseurCoursController;
@@ -58,6 +59,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 Route::middleware(['auth:sanctum', RoleMiddleware::class.':1'])->group(function () {
+    Route::post('/admin/impersonate/{id}', [AdminImpersonationController::class, 'impersonate']);
+    Route::post('/admin/impersonate/stop', [AdminImpersonationController::class, 'stop']);
+
     Route::apiResource('/admin/matieres', AdminMatiereController::class); //V
     Route::apiResource('/admin/users', AdminUserController::class); //V
 
