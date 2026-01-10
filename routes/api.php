@@ -23,36 +23,36 @@ use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\StudentMatiereController;
 
 
-Route::post('/login', [AuthController::class, 'login']);   //V
-Route::post('/register', [AuthController::class, 'register']);//V
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::post('/update-password', [AuthController::class, 'updatePassword']);
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/me', fn (Request $request) => $request->user());//V
-    Route::put('/me', [AuthController::class, 'updateProfile']);
+    Route::post('/update-password', [AuthController::class, 'updatePassword'])->name('update-password');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/me', fn (Request $request) => $request->user())->name('me');
+    Route::put('/me', [AuthController::class, 'updateProfile'])->name('update-profile');
 
-    Route::get('/cours', [CoursController::class, 'index']);  // liste des cours
-    Route::get('/cours/{id}', [CoursController::class, 'show']); // détail cours
-    Route::get('/student/matieres', [StudentMatiereController::class, 'index']); // matieres by classe
+    Route::get('/cours', [CoursController::class, 'index'])->name('cours.index');  // liste des cours
+    Route::get('/cours/{id}', [CoursController::class, 'show'])->name('cours.show'); // détail cours
+    Route::get('/student/matieres', [StudentMatiereController::class, 'index'])->name('student.matieres'); // matieres by classe
 
-    Route::get('/quiz', [QuizController::class, 'index']);        // liste des quiz pour l'élève
-    Route::get('/quiz/{id}', [QuizController::class, 'show']);   // détails d'un quiz
+    Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');        // liste des quiz pour l'élève
+    Route::get('/quiz/{id}', [QuizController::class, 'show'])->name('quiz.show');   // détails d'un quiz
 
-    Route::get('/quiz/{quiz_id}/questions', [QuestionController::class, 'index']);
+    Route::get('/quiz/{quiz_id}/questions', [QuestionController::class, 'index'])->name('quiz.questions.index');
 
-    Route::get('/resultats', [ResultatsQuizController::class, 'index']);
-    Route::post('/resultats', [ResultatsQuizController::class, 'store']);
+    Route::get('/resultats', [ResultatsQuizController::class, 'index'])->name('resultats.index');
+    Route::post('/resultats', [ResultatsQuizController::class, 'store'])->name('resultats.store');
 
-    Route::get('/forums', [ForumController::class, 'index']);
-    Route::get('/forums/{id}', [ForumController::class, 'show']);
+    Route::get('/forums', [ForumController::class, 'index'])->name('forums.index');
+    Route::get('/forums/{id}', [ForumController::class, 'show'])->name('forums.show');
 
-    Route::get('/forums/{forum_id}/sujets', [SujetsForumController::class, 'index']);
-    Route::post('/forums/sujets', [SujetsForumController::class, 'store']);
+    Route::get('/forums/{forum_id}/sujets', [SujetsForumController::class, 'index'])->name('forums.sujets.index');
+    Route::post('/forums/sujets', [SujetsForumController::class, 'store'])->name('forums.sujets.store');
 
-    Route::get('/sujets/{sujet_id}/messages', [MessagesForumController::class, 'index']);
-    Route::post('/messages', [MessagesForumController::class, 'store']);
+    Route::get('/sujets/{sujet_id}/messages', [MessagesForumController::class, 'index'])->name('sujets.messages.index');
+    Route::post('/messages', [MessagesForumController::class, 'store'])->name('messages.store');
 });
 
 
